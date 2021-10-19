@@ -1,0 +1,112 @@
+{% extends 'shops/base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock title %}
+{% block content %}
+
+    <div>
+        <div>
+            <div>
+                <img src="{{ product.image.url }}" alt="image">
+            </div>
+            <div>
+                <div>
+                    <h2>
+                        {{ product.name }}
+                    </h2>
+                    <h2>
+                    <a href="{{ product.category.get_absolute_url }}">{{product.category }}</a>
+                    </h2>
+                        <p>${{ product.price }}</p>
+                </div>
+                <div>
+                    {{ product.description }}
+                </div>
+                {% if product.available %}
+                    <div>
+                        Available
+                    </div>
+                {% else %}
+                    <div>
+                        Currently unavailable
+                    </div>
+                {% endif %}
+                <hr>
+                <div>
+                    <span>
+                      Average rating: {{ product.get_average_review_score }}/5.0
+                    </span>
+                </div>
+
+                 <form method="post">
+                     {% csrf_token %}
+                     <span>${{ product.price }}</span>
+                     <input type="number" value="1">
+                     <button type="submit" title="Add to cart">
+                         <i>Ok</i>
+                     </button>
+                 </form>
+
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <hr>
+        <h3>Reviews:</h3>
+        {% for review in product.reviews.all %}
+            <span>{{ review.author }} - {{ review.rating }}/5 - {{ review.created }}</span>
+            <span>{{ review.text }}</span>
+            <hr>
+        {% empty %}
+            <span>Currently no reviews</span>
+        {% endfor %}
+    </div>
+
+    <div>
+        <div>
+            <h5>Write your review</h5>
+            <button>&times;</button>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                Rating:
+                <label>
+                    <i>star</i>
+                </label>
+
+                <input value="1" type="radio" required>
+                <label>
+                    <i>1</i>
+                </label>
+
+                <input value="2" type="radio" required>
+                <label>
+                    <i>2</i>
+                </label>
+
+                <input value="3" type="radio" required>
+                <label>
+                    <i>3</i>
+                </label>
+
+                <input value="4" type="radio" required>
+                <label>
+                    <i>4</i>
+                </label>
+
+                <input checked value="5" type="radio" required>
+                <label>
+                    <i>5</i>
+                </label>
+            </div>
+            <hr>
+            <div>
+                {{ review_form.text }}
+            </div>
+            <button type="submit">Confirm</button>
+        </form>
+    </div>
+
+{% endblock content %}
