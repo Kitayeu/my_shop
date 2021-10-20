@@ -1,0 +1,11 @@
+{% extends 'shops/base.html' %}
+
+{% block title %}Order №{{ order.id }} created{% endblock title %}
+
+{% block content %}
+
+    <h3>
+        Thank you for your order. Your order number is <strong>{{ order.id }}</strong>
+    </h3>
+
+{% endblock content %}

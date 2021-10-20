@@ -1,0 +1,119 @@
+{% extends 'shops/base.html' %}
+
+{% block title %}Checkout{% endblock title %}
+
+{% block content %}
+
+    <div>
+        <h3>
+            Delivery information:
+        </h3>
+        <form method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <div class="input">
+                        <label>First name</label>
+                        {{ order_form.first_name }}
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="input">
+                        <label>Last name</label>
+                        {{ order_form.last_name }}
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="input">
+                        <label>Email</label>
+                        {{ order_form.email }}
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="input">
+                        <label>Phone number</label>
+                        {{ order_form.telephone }}
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col">
+                    <div class="input">
+                        <label>Address</label>
+                        {{ order_form.address }}
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="input">
+                        <label>Postal code</label>
+                        {{ order_form.postal_code }}
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="input">
+                        <label>City</label>
+                        {{ order_form.city }}
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="input">
+                        <label>Country</label>
+                        {{ order_form.country }}
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <h4>
+                Transport:
+            </h4>
+
+            <div class="row">
+                <div class="col">
+                    <div class="btn">
+                        <input type="radio" value="Courier delivery" amount="{{ transport_cost }}"
+                               checked="" onclick="setTotalCost()">
+                        <label>Courier delivery
+                            <span>
+                                ${{ transport_cost }}
+                            </span>
+                        </label>
+                    </div>
+                    <div class="btn">
+                        <input type="radio" value="Recipient pickup" amount="free"
+                               onclick="setTotalCost()">
+                        <label>Recipient pickup
+                            <span>
+                                free
+                            </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="input">
+                <label>Note</label>
+                {{ order_form.note }}
+            </div>
+
+            <div>
+                <a href="{% url 'shops:product_list' %}">
+                    Back to shop
+                </a>
+                <button type="submit">Create order</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

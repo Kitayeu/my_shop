@@ -11,7 +11,7 @@ def order_create(request):
     cart = get_cart(request)
 
     cart_qty = sum(item['quantity'] for item in cart.values())
-    transport_cost = round((cart_qty // 8.3), 2)
+    transport_cost = round((cart_qty // 10), 2)
 
     if request.method == 'POST':
         order_form = OrderCreateForm(request.POST)
