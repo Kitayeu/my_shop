@@ -38,10 +38,10 @@
                     </span>
                 </div>
 
-                 <form method="post">
+                 <form action="{% url 'carts:cart_add' product.id %}" method="post">
                      {% csrf_token %}
                      <span>${{ product.price }}</span>
-                     <input type="number" value="1">
+                     {{ cart_product_form.quantity }}
                      <button type="submit" title="Add to cart">
                          <i>Ok</i>
                      </button>
