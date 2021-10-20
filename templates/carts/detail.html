@@ -1,0 +1,92 @@
+{% extends 'shops/base.html' %}
+{% block title %}Shopping cart{% endblock title %}
+{% block content %}
+    <div>
+        <h3>Your order:</h3>
+        <div>
+            <div>
+                Product
+            </div>
+            <div>
+                Description
+            </div>
+            <div>
+                Availability
+            </div>
+            <div>
+                Price
+            </div>
+            <div>
+                Quantity
+            </div>
+            <div>
+                Total price
+            </div>
+        </div>
+        <hr>
+        {% for item in cart %}
+            {% with product=item.product %}
+                <div>
+                    <a href="{{ product.get_absolute_url }}">
+                        <img src="{{ product.image.url }}" alt="image">
+                    </a>
+                </div>
+                <div>
+                    {{ product.name }}
+                </div>
+                <div>
+                    {% if product.available %}
+                        <div>
+                            Available
+                        </div>
+                    {% else %}
+                        <div>
+                            Currently unavailable
+                        </div>
+                    {% endif %}
+                </div>
+                <div>
+                    <span>${{ product.price }}</span>
+                </div>
+                <div>
+                    <form action="{% url 'carts:cart_add' product.id %}" method="post">
+                        {% csrf_token %}
+                        <span>
+                            {{ item.update_quantity_form.quantity }}
+                            <button type="submit" data-toggle="tooltip" data-placement="top" title="Update">
+                                <i>+</i>
+                            </button>
+                        </span>
+                    </form>
+                </div>
+                <div>
+                    <span>${{ item.total_price }}</span>
+                </div>
+                <div>
+                   <form action="{% url 'carts:cart_remove' product.id %}" method="post">
+                       {% csrf_token %}
+                       <button type="submit" data-toggle="tooltip" data-placement="top" title="Remove">
+                           <i>-</i>
+                       </button>
+                   </form>
+                </div>
+            {% endwith %}
+        {% empty %}
+            <span>Your shopping cart is empty.</span>
+        {% endfor %}
+        <hr>
+        <div>
+            <h4>
+                Total price:
+                ${{ cart_total_price|floatformat:2 }}
+            </h4>
+        </div>
+        <hr>
+        <div>
+            <a href="{% url 'shops:product_list' %}">Back to shop</a>
+            <a href="#">
+                Checkout
+            </a>
+        </div>
+    </div>
+{% endblock content %}
