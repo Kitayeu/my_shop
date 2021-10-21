@@ -11,3 +11,16 @@ class OrderCreateForm(forms.ModelForm):
             'address', 'postal_code', 'city', 'country', 'note',
             'transport'
         ]
+
+        widgets = {
+            'first_name': forms.TextInput(),
+            'last_name': forms.TextInput(),
+            'email': forms.TextInput(),
+            'telephone': forms.TextInput(),
+            'address': forms.TextInput(),
+            'postal_code': forms.TextInput(),
+            'city': forms.TextInput(),
+            'country': forms.TextInput(),
+            'note': forms.Textarea(),
+            'transport': forms.RadioSelect()
+        }
