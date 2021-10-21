@@ -5,13 +5,14 @@ from decimal import Decimal
 from .models import OrderItems, Product
 from .forms import OrderCreateForm
 from carts.views import get_cart, cart_clear
+from .tasks import order_created
 
 
 def order_create(request):
     cart = get_cart(request)
 
     cart_qty = sum(item['quantity'] for item in cart.values())
-    transport_cost = round((cart_qty // 10), 2)
+    transport_cost = round((22 + cart_qty // 10), 2)
 
     if request.method == 'POST':
         order_form = OrderCreateForm(request.POST)
@@ -37,6 +38,9 @@ def order_create(request):
                     quantity=cart_item['quantity']
                 )
                 cart_clear(request)  # cleaning cart
+
+                order_created.delay(order.id)  # starting an asynchronous task
+
                 return render(request,
                               'orders/order_created.html',
                               {'order': order}
