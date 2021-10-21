@@ -142,3 +142,4 @@ cython_debug/
 media/
 products/
 add_info.py
+staticfiles/

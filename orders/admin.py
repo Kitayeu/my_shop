@@ -3,6 +3,8 @@ import datetime
 
 from django.contrib import admin
 from django.http import HttpResponse
+from django.urls import reverse
+from django.utils.html import format_html
 
 from .models import Order, OrderItems
 from .tasks import status_change_notification, payment_status
@@ -80,6 +82,13 @@ def paid_for(modeladmin, request, queryset):
 paid_for.short_description = 'Paid'
 
 
+def order_pdf(obj):
+    return format_html('<a href="{}">PDF</a>', reverse('orders:invoice_pdf', args=[obj.id]))
+
+
+order_pdf.short_description = 'Invoice'
+
+
 class OrderItemInline(admin.TabularInline):
     model = OrderItems
 
@@ -89,7 +98,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display = [
         'id', 'first_name', 'last_name', 'email',
         'address', 'postal_code', 'city', 'paid',
-        'transport', 'created', 'status',
+        'transport', 'created', 'status', order_pdf
     ]
     list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline]
