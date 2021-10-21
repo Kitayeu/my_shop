@@ -1,4 +1,5 @@
 {% extends 'shops/base.html' %}
+{% load static %}
 
 {% block title %}Checkout{% endblock title %}
 
@@ -81,18 +82,20 @@
             <div class="row">
                 <div class="col">
                     <div class="btn">
-                        <input type="radio" value="Courier delivery" amount="{{ transport_cost }}"
+                        <input type="radio" id="id_transport_0" name="transport"
+                               value="Courier delivery" amount="{{ transport_cost }}"
                                checked="" onclick="setTotalCost()">
-                        <label>Courier delivery
+                        <label for="id_transport_0">Courier delivery &nbsp;
                             <span>
                                 ${{ transport_cost }}
                             </span>
                         </label>
                     </div>
                     <div class="btn">
-                        <input type="radio" value="Recipient pickup" amount="free"
+                        <input type="radio" id="id_transport_1" name="transport"
+                               value="Recipient pickup" amount="free"
                                onclick="setTotalCost()">
-                        <label>Recipient pickup
+                        <label for="id_transport_1">Recipient pickup &nbsp;
                             <span>
                                 free
                             </span>
