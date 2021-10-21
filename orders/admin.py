@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.http import HttpResponse
 
 from .models import Order, OrderItems
-from .tasks import status_change_notification
+from .tasks import status_change_notification, payment_status
 
 
 def status_change(queryset, status):
@@ -57,6 +57,29 @@ def export_csv(modeladmin, request, queryset):
 export_csv.short_description = 'Export to CSV'
 
 
+def payment(queryset, paid):
+    for order in queryset:
+        order.paid = paid
+        order.save()
+
+        if paid:
+            payment_status.delay(order.id)
+
+
+def not_paid(modeladmin, request, queryset):
+    payment(queryset, False)
+
+
+not_paid.short_description = 'Not Paid'
+
+
+def paid_for(modeladmin, request, queryset):
+    payment(queryset, True)
+
+
+paid_for.short_description = 'Paid'
+
+
 class OrderItemInline(admin.TabularInline):
     model = OrderItems
 
@@ -72,5 +95,5 @@ class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderItemInline]
 
     actions = [status_created, status_processing, status_ready_for_pickup,
-               status_shipped, status_completed, export_csv
+               status_shipped, status_completed, not_paid, paid_for, export_csv
                ]

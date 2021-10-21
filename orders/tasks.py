@@ -38,3 +38,20 @@ def status_change_notification(order_id):
     )
 
     return mail_sent
+
+
+@task
+def payment_status(order_id):
+    order = Order.objects.get(id=order_id)
+    subject = f'Order nr. {order.id}'
+    message = f'Dear {order.first_name}, \n\n' \
+              f'your order ID {order.id} has been paid'
+
+    mail_sent = send_mail(
+        subject,
+        message,
+        'admin@my_shop.store',
+        [order.email]
+    )
+
+    return mail_sent
