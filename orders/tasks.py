@@ -1,6 +1,12 @@
 from celery import task
 
-from django.core.mail import send_mail
+from django.conf import settings
+from django.core.mail import send_mail, EmailMessage
+from django.template.loader import render_to_string
+
+from io import BytesIO
+
+import weasyprint
 
 from .models import Order
 
@@ -13,14 +19,21 @@ def order_created(order_id):
               f'Your order was successfully created.\n' \
               f'Your order ID is {order.id}.'
 
-    mail_sent = send_mail(
+    email = EmailMessage(
         subject,
         message,
         'admin@my_shop.store',
         [order.email]
     )
 
-    return mail_sent
+    # generate pdf
+    html = render_to_string('orders/pdf.html', {'order': order})
+    out = BytesIO()
+    stylesheets = []
+    weasyprint.HTML(string=html).write_pdf(out, stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + '/css/style.css')])
+    # attach PDF file
+    email.attach(f'order_{order.id}.pdf', out.getvalue(), 'application/pdf')
+    email.send()
 
 
 @task
