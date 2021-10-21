@@ -141,3 +141,5 @@ cython_debug/
 # local files
 media/
 products/
+add_info.py
+staticfiles/

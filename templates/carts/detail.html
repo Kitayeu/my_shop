@@ -1,4 +1,5 @@
 {% extends 'shops/base.html' %}
+{% load static %}
 {% block title %}Shopping cart{% endblock title %}
 {% block content %}
     <div>
@@ -84,9 +85,7 @@
         <hr>
         <div>
             <a href="{% url 'shops:product_list' %}">Back to shop</a>
-            <a href="#">
-                Checkout
-            </a>
+            <a href="{% url 'orders:order_create' %}">Checkout</a>
         </div>
     </div>
 {% endblock content %}
