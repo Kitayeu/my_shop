@@ -85,6 +85,41 @@
 
             <hr>
 
+            <h3>Your orders:</h3>
+            <table>
+                {% for order in request.user.orders.all %}
+                    <tr>
+                        <td>
+                            <a href="">
+                                {{ order.id }}
+                            </a>
+                        </td>
+
+                        <td>{{ order.created|date }}</td>
+                        <td>
+                            ${{ order.get_total_cost|floatformat:2 }}
+                        </td>
+
+                        <td>
+                            <a href="" target="_blank">
+                                <i></i>
+                                Invoice {{ order.id }}
+                            </a>
+                        </td>
+
+                        <td>{{ order.status }}</td>
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+                        No orders yet
+                    </tr>
+
+                {% endfor %}
+
+            </table>
+
         </form>
     </div>
 
