@@ -21,6 +21,34 @@
 
                 <div>
                     <ul>
+                        {% if request.user.is_authenticated %}
+                            <li>
+                                <a href="">
+                                    <i></i> {{ request.user.email }}
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'accounts:logout' %}">
+                                    <i></i> Log out
+                                </a>
+                            </li>
+
+                        {% else %}
+
+                            <li>
+                                <a href="{% url 'accounts:login' %}">
+                                    <i></i> Log in
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="">
+                                    <i></i> Register
+                                </a>
+                            </li>
+                        {% endif %}
+
                         <li>
                             <div>
                                 <a href="{% url 'carts:cart_detail' %}">

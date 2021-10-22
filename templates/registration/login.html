@@ -1,0 +1,37 @@
+{% extends 'shops/base.html' %}
+
+{% block title %}Log in{% endblock title %}
+
+{% block content %}
+
+    <div>
+        <h3>Log in</h3>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div>
+                <label for="username">Username</label>
+                {{ form.username }}
+            </div>
+
+            <br>
+
+            <div>
+                <label for="password">Password</label>&nbsp;
+                {{ form.password }}
+            </div>
+            <hr>
+            <button type="submit">
+                Log in
+            </button>
+        </form>
+
+        {% if form.errors %}
+            <div>
+                Incorrect username / password
+                <a href="" class="close">x</a>
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endblock content %}
