@@ -91,3 +91,14 @@ def invoice_pdf(request, order_id):
         return response
 
     return redirect('accounts:profile')
+
+
+def order_detail(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+    if request.user == order.user or (request.user.is_active and request.user.is_staff):
+        return render(
+            request,
+            'orders/detail.html',
+            {'order': order}
+        )
+    return redirect('accounts:profile')

@@ -90,7 +90,7 @@
                 {% for order in request.user.orders.all %}
                     <tr>
                         <td>
-                            <a href="">
+                            <a href="{{ order.get_absolute_url }}">
                                 {{ order.id }}
                             </a>
                         </td>
