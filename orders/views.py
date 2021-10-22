@@ -54,6 +54,19 @@ def order_create(request):
     else:
         order_form = OrderCreateForm()
 
+        if request.user.is_authenticated:
+            initial_data = {
+                'first_name': request.user.first_name,
+                'last_name': request.user.last_name,
+                'email': request.user.email,
+                'telephone': request.user.profile.phone_number,
+                'address': request.user.profile.address,
+                'postal_code': request.user.profile.postal_code,
+                'city': request.user.profile.city,
+                'country': request.user.profile.country,
+            }
+            order_form = OrderCreateForm(initial=initial_data)
+
     return render(request,
                   'orders/order_create.html',
                   {'cart': cart,
