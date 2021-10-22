@@ -2,7 +2,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-from django.contrib.admin.views.decorators import staff_member_required
 
 from decimal import Decimal
 
@@ -79,23 +78,9 @@ def order_create(request):
                   )
 
 
-@staff_member_required
 def invoice_pdf(request, order_id):
     order = get_object_or_404(Order, id=order_id)
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = f'filename=order_{order.id}.pdf'
-
-    # generate pdf
-    html = render_to_string('orders/pdf.html', {'order': order})
-    stylesheets = []
-    weasyprint.HTML(string=html).write_pdf(response,
-                                           stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + '/css/style.css')])
-    return response
-
-
-def customer_invoice_pdf(request, order_id):
-    order = get_object_or_404(Order, id=order_id)
-    if request.user == order.user:
+    if request.user == order.user or (request.user.is_active and request.user.is_staff):
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = f'filename=order_{order.id}.pdf'
 
