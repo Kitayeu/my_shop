@@ -29,6 +29,10 @@ def order_create(request):
                 transport_cost = 0
 
             order = order_form.save(commit=False)
+
+            if request.user.is_authenticated:
+                order.user = request.user
+
             order.transport_cost = Decimal(transport_cost)
             order.save()
 

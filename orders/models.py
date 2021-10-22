@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 from shops.models import Product
 
@@ -17,6 +18,12 @@ TRANSPORT_CHOICES = [
 
 
 class Order(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE,
+                             related_name='orders',
+                             blank=True,
+                             null=True)
+
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()

@@ -73,6 +73,15 @@
                 </div>
             </div>
 
+            {% if not request.user.is_authenticated %}
+            <div>
+                Already registered?
+                <a href="{% url 'accounts:login' %}">
+                    Log in
+                </a>
+            </div>
+            {% endif %}
+
             <hr>
 
             <h4>
