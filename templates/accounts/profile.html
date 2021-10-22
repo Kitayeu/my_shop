@@ -101,7 +101,7 @@
                         </td>
 
                         <td>
-                            <a href="" target="_blank">
+                            <a href="{% url 'orders:customer_invoice_pdf' order.id %}" target="_blank">
                                 <i></i>
                                 Invoice {{ order.id }}
                             </a>

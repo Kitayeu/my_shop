@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
@@ -91,3 +91,18 @@ def invoice_pdf(request, order_id):
     weasyprint.HTML(string=html).write_pdf(response,
                                            stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + '/css/style.css')])
     return response
+
+
+def customer_invoice_pdf(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    if request.user == order.user:
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'filename=order_{order.id}.pdf'
+
+        # generate pdf
+        html = render_to_string('orders/pdf.html', {'order': order})
+        weasyprint.HTML(string=html).write_pdf(response,
+                                               stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + '/css/style.css')])
+        return response
+
+    return redirect('accounts:profile')
