@@ -28,8 +28,9 @@ def product_detail(request, category_slug, product_slug):
         review_form = ReviewForm(request.POST)
         if review_form.is_valid():
             cf = review_form.cleaned_data
-            author_name = 'Anonymous'
-            Review.objects.create(product=product, author=author_name, text=cf['text'], rating=cf['rating'])
+            if request.user.is_authenticated:
+                author_name = request.user.first_name
+                Review.objects.create(product=product, author=author_name, text=cf['text'], rating=cf['rating'])
         return redirect('shops:product_detail', category_slug=category_slug, product_slug=product_slug)
     else:
         review_form = ReviewForm()

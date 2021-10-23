@@ -19,10 +19,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
     path('cart/', include('carts.urls', namespace='carts')),
     path('orders/', include('orders.urls', namespace='orders')),
     path('', include('shops.urls', namespace='shops')),
+    path('social-auth/', include('social_django.urls', namespace='social')),
 ]
 
 if settings.DEBUG:

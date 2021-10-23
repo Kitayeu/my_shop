@@ -1,8 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.conf import settings
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-from django.contrib.admin.views.decorators import staff_member_required
 
 from decimal import Decimal
 
@@ -29,6 +28,10 @@ def order_create(request):
                 transport_cost = 0
 
             order = order_form.save(commit=False)
+
+            if request.user.is_authenticated:
+                order.user = request.user
+
             order.transport_cost = Decimal(transport_cost)
             order.save()
 
@@ -54,6 +57,19 @@ def order_create(request):
     else:
         order_form = OrderCreateForm()
 
+        if request.user.is_authenticated:
+            initial_data = {
+                'first_name': request.user.first_name,
+                'last_name': request.user.last_name,
+                'email': request.user.email,
+                'telephone': request.user.profile.phone_number,
+                'address': request.user.profile.address,
+                'postal_code': request.user.profile.postal_code,
+                'city': request.user.profile.city,
+                'country': request.user.profile.country,
+            }
+            order_form = OrderCreateForm(initial=initial_data)
+
     return render(request,
                   'orders/order_create.html',
                   {'cart': cart,
@@ -62,15 +78,27 @@ def order_create(request):
                   )
 
 
-@staff_member_required
 def invoice_pdf(request, order_id):
     order = get_object_or_404(Order, id=order_id)
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = f'filename=order_{order.id}.pdf'
+    if request.user == order.user or (request.user.is_active and request.user.is_staff):
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'filename=order_{order.id}.pdf'
 
-    # generate pdf
-    html = render_to_string('orders/pdf.html', {'order': order})
-    stylesheets = []
-    weasyprint.HTML(string=html).write_pdf(response,
-                                           stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + '/css/style.css')])
-    return response
+        # generate pdf
+        html = render_to_string('orders/pdf.html', {'order': order})
+        weasyprint.HTML(string=html).write_pdf(response,
+                                               stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + '/css/style.css')])
+        return response
+
+    return redirect('profile')
+
+
+def order_detail(request, order_id):
+    order = get_object_or_404(Order, pk=order_id)
+    if request.user == order.user or (request.user.is_active and request.user.is_staff):
+        return render(
+            request,
+            'orders/detail.html',
+            {'order': order}
+        )
+    return redirect('profile')
