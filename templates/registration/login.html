@@ -7,6 +7,7 @@
     <div>
         <h3>Log in</h3>
         <form action="" method="post">
+            <p><a href="{% url "password_reset" %}">Forgotten your password?</a></p>
             {% csrf_token %}
             <div>
                 <label for="username">Username</label>
