@@ -84,7 +84,7 @@ def profile(request):
         else:
             messages.error(request, 'User with given email already exists')
 
-        return redirect('accounts:profile')
+        return redirect('profile')
 
     else:
 

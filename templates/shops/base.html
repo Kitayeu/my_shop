@@ -23,13 +23,13 @@
                     <ul>
                         {% if request.user.is_authenticated %}
                             <li>
-                                <a href="{% url 'accounts:profile' %}">
+                                <a href="{% url 'profile' %}">
                                     <i></i> {{ request.user.email }}
                                 </a>
                             </li>
 
                             <li>
-                                <a href="{% url 'accounts:logout' %}">
+                                <a href="{% url 'logout' %}">
                                     <i></i> Log out
                                 </a>
                             </li>
@@ -37,13 +37,13 @@
                         {% else %}
 
                             <li>
-                                <a href="{% url 'accounts:login' %}">
+                                <a href="{% url 'login' %}">
                                     <i></i> Log in
                                 </a>
                             </li>
 
                             <li>
-                                <a href="{% url 'accounts:register' %}">
+                                <a href="{% url 'register' %}">
                                     <i></i> Register
                                 </a>
                             </li>

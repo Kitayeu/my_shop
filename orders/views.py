@@ -90,7 +90,7 @@ def invoice_pdf(request, order_id):
                                                stylesheets=[weasyprint.CSS(settings.STATIC_ROOT + '/css/style.css')])
         return response
 
-    return redirect('accounts:profile')
+    return redirect('profile')
 
 
 def order_detail(request, order_id):
@@ -101,4 +101,4 @@ def order_detail(request, order_id):
             'orders/detail.html',
             {'order': order}
         )
-    return redirect('accounts:profile')
+    return redirect('profile')
