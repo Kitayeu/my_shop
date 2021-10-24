@@ -56,6 +56,7 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_swagger',
     'rest_auth',
     'rest_auth.registration',
 ]
@@ -193,6 +194,12 @@ REST_FRAMEWORK = {
     ],
 }
 
+REST_FRAMEWORK = {'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'}
+
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': 'rest_framework:login',
+    'LOGOUT_URL': 'rest_framework:logout',
+}
 
 LOGIN_REDIRECT_URL = 'shops:product_list'
 LOGOUT_REDIRECT_URL = 'shops:product_list'
