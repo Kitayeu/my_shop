@@ -173,6 +173,12 @@ SOCIAL_AUTH_REDIRECT = True
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('GOOGLE_OAUTH2_SECRET')
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ]
+}
+
 
 LOGIN_REDIRECT_URL = 'shops:product_list'
 LOGOUT_REDIRECT_URL = 'shops:product_list'

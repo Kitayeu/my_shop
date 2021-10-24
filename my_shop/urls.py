@@ -25,6 +25,8 @@ urlpatterns = [
     path('orders/', include('orders.urls', namespace='orders')),
     path('', include('shops.urls', namespace='shops')),
     path('social-auth/', include('social_django.urls', namespace='social')),
+    path('api/v1/', include('api.urls', namespace='api')),
+    path('api-auth/', include('rest_framework.urls')),
 ]
 
 if settings.DEBUG:
