@@ -1,68 +1,44 @@
-from rest_framework import generics
+from rest_framework import permissions
+from rest_framework import viewsets
 
 from accounts.models import Profile
 from orders.models import Order, OrderItems
 from shops.models import Category, Product, Review
-
 from .serializers import (ProfileSerializer, OrderSerializer, OrderItemsSerializer,
                           CategorySerializer, ProductSerializer, ReviewSerializer)
 
 
-class ProfileList(generics.ListAPIView):
+class ProfileViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
 
-class ProfileDetail(generics.RetrieveAPIView):
-    queryset = Profile.objects.all()
-    serializer_class = ProfileSerializer
-
-
-class OrderList(generics.ListAPIView):
+class OrderViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
 
-class OrderDetail(generics.RetrieveAPIView):
-    queryset = Order.objects.all()
-    serializer_class = OrderSerializer
-
-
-class OrderItemsList(generics.ListAPIView):
+class OrderItemsViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = OrderItems.objects.all()
     serializer_class = OrderItemsSerializer
 
 
-class OrderItemsDetail(generics.RetrieveAPIView):
-    queryset = OrderItems.objects.all()
-    serializer_class = OrderItemsSerializer
-
-
-class CategoryList(generics.ListAPIView):
+class CategoryViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
-class CategoryDetail(generics.RetrieveAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
-
-class ProductList(generics.ListAPIView):
+class ProductViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
 
-class ProductDetail(generics.RetrieveAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-
-class ReviewList(generics.ListAPIView):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
-
-
-class ReviewDetail(generics.RetrieveAPIView):
+class ReviewViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
