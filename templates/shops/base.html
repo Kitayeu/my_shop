@@ -7,6 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>{% block title %}{% endblock title %}</title>
 </head>
 
@@ -14,65 +18,69 @@
 
     <header class="header">
 
-        <nav>
             <div class="container">
 
-                <a href="{% url 'shops:product_list' %}">My shop</a>
+                <div class="header-row">
 
-                <div>
-                    <ul>
-                        {% if request.user.is_authenticated %}
-                            <li>
-                                <a href="{% url 'profile' %}">
-                                    <i></i> {{ request.user.email }}
-                                </a>
+                    <div class="logo">
+                        <a href="{% url 'shops:product_list' %}">aqua</a>
+                    </div>
+
+                    <nav class="nav">
+                        <ul class="nav-list">
+                            {% if request.user.is_authenticated %}
+                                <li class="nav-list__item">
+                                    <a href="{% url 'profile' %}">
+                                        <i class="fas fa-user"></i> &nbsp; {{ request.user.email }}
+                                    </a>
+                                </li>
+
+                                <li class="nav-list__item">
+                                    <a href="{% url 'logout' %}">
+                                        Log out &nbsp; <i class="fas fa-sign-out-alt"></i>
+                                    </a>
+                                </li>
+
+                            {% else %}
+
+                                <li class="nav-list__item">
+                                    <a href="{% url 'login' %}">
+                                        Log in &nbsp; <i class="fas fa-sign-in-alt"></i>
+                                    </a>
+                                </li>
+
+                                <li class="nav-list__item">
+                                    <a href="{% url 'register' %}">
+                                        Register &nbsp; <i class="fas fa-registered"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+                            <li class="nav-list__item">
+                                <div class="cart__item">
+                                    <a href="{% url 'carts:cart_detail' %}">
+                                        <i class="fas fa-shopping-cart"></i> &ensp;
+                                        $ &zwnj; <span>{{ cart_total_price|floatformat:2 }}</span>
+                                    </a>
+                                </div>
                             </li>
+                        </ul>
+                    </nav>
 
-                            <li>
-                                <a href="{% url 'logout' %}">
-                                    <i></i> Log out
-                                </a>
-                            </li>
-
-                        {% else %}
-
-                            <li>
-                                <a href="{% url 'login' %}">
-                                    <i></i> Log in
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="{% url 'register' %}">
-                                    <i></i> Register
-                                </a>
-                            </li>
-                        {% endif %}
-
-                        <li>
-                            <div>
-                                <a href="{% url 'carts:cart_detail' %}">
-                                    <i></i>
-                                    {% if cart_total_price > 0 %}
-                                        Your cart:
-                                        $ <span>{{ cart_total_price|floatformat:2 }}</span>
-                                    {% else %}
-                                        Your cart is empty.
-                                    {% endif %}
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
                 </div>
+
             </div>
-        </nav>
 
     </header>
 
-    <div class="container">
-        {% block content %}
-        {% endblock content %}
-    </div>
+    <section>
+
+        <div class="container">
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+    </section>
 
 </body>
 
