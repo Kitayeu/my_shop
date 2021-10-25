@@ -1,4 +1,5 @@
 @import url('./header.css');
+@import url('./list.css');
 
 html{
     font-family: 'Open Sans', sans-serif;
@@ -14,4 +15,10 @@ html{
     max-width: 1170px;
     margin: auto;
     padding: 0 15px;
+    position: relative;
+    z-index: 2;
+}
+section{
+    padding: 75px 0 30px;
+    background: #f1f1f1;
 }

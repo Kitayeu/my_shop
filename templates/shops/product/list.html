@@ -1,60 +1,63 @@
 {% extends 'shops/base.html' %}
 {% load static %}
 
-{% block title %}My shop{% endblock title %}
+{% block title %}Products{% endblock title %}
+
 {% block content %}
 
     <div class="row">
-        <div class="col">
-                <h3>
-                    Categories
-                </h3>
-                <ul>
-                    <li>
-                        <a href="{% url 'shops:product_list' %}">All</a>
-                    </li>
-                    {% for category in categories %}
-                        <li
-                                {% if category.slug == request_category.slug %}
-                                {% else %}
-                                {% endif %}>
-                            <a href="{{ category.get_absolute_url }}">
-                                {{ category.name }}
-                            </a>
+
+        <div class="list-col">
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li class="nav-list_item">
+                            <a href="{% url 'shops:product_list' %}">all products</a>
                         </li>
-                    {% endfor %}
-                </ul>
+                        {% for category in categories %}
+                            <li class="nav-list_item"
+                                    {% if category.slug == request_category.slug %}
+                                    {% else %}
+                                    {% endif %}>
+                                <a href="{{ category.get_absolute_url }}">
+                                    {{ category.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
         </div>
 
-        <div class="col">
-            <div class="card">
-                    <h2>
-                        Our products
-                    </h2>
-            </div>
+        <div>
+            {% if request_category.slug %}
+                <h2 class="name_category">{{request_category.slug }}</h2>
+            {% else %}
+                <h2 class="name_category">all products</h2>
+            {% endif %}
+        </div>
 
-            <div class="row">
+        <div class="item-col">
+            <div class="item-row">
                 {% for product in products %}
-                    <div class="col">
-                        <div class="card product">
-                            <div class="item">
-                                <div class="item-image">
+                    <div class="card_product">
+                        <div class="item">
+                            <div class="item-image">
+                                <a href="{{ product.get_absolute_url }}">
+                                    <img src="{{ product.image.url }}" alt="image">
+                                </a>
+                            </div>
+
+                            <div class="item-text">
                                     <a href="{{ product.get_absolute_url }}">
-                                        <img src="{{ product.image.url }}" alt="image">
-                                        <i></i>
                                     </a>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="card_name">
+                                    <p>{{ product.name }}</p>
                                 </div>
 
-                                <div class="item-text">
-                                        <a href="{{ product.get_absolute_url }}">
-                                            <i></i>
-                                        </a>
-                                </div>
-
-                                <div class="card-body">
-                                    {{ product.name }}
-                                    <hr>
-                                    <span>${{ product.price }}</span>
+                                <div class="card_price">
+                                    <h3>$ {{ product.price }}</h3>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +65,7 @@
                 {% endfor %}
             </div>
         </div>
+
     </div>
-    <hr>
 
 {% endblock content %}

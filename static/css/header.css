@@ -1,5 +1,7 @@
 .header{
     width: 100%;
+    position: fixed;
+    z-index: 3;
     background: #0d3139;
 }
 .header-row{
