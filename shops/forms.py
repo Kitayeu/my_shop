@@ -11,6 +11,6 @@ class ReviewForm(forms.ModelForm):
         model = Review
         fields = ['text', 'rating']
 
-        widgets = {'text': forms.Textarea(attrs={'class': 'form-control shadow px-2', 'rows': 6}),
+        widgets = {'text': forms.Textarea(attrs={'class': 'review-add_text', 'rows': 6, 'cols': 134}),
                    'rating': forms.RadioSelect(choices=REVIEW_CHOICES)
                    }
