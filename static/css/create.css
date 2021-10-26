@@ -1,0 +1,108 @@
+.row_head{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px 20px 0 20px;
+    padding-right: 20px;
+}
+.row_order{
+    display: inline-block;
+    margin-left: 20px;
+    width: 370px;
+}
+.order_input{
+    display: flex;
+    justify-content: flex-end;
+}
+.form-control-delivery{
+    font-size:20px;
+    font-weight: 400;
+    color:#000000;
+    width: 250px;
+    border-radius: 5px;
+}
+.label_order{
+    display: flex;
+    justify-content: flex-start;
+    font-size:20px;
+    font-weight: 400;
+    color:#000000;
+    width: 250px
+}
+.order_registered{
+    font-size:18px;
+    font-weight: 400;
+    margin: 10px 0 10px 0;
+}
+.order_transport{
+    margin: 10px 0 10px 0;
+}
+.col-btn{
+    margin-bottom: 10px;
+    text-align: center;
+}
+.btn{
+    display: block;
+    margin-left: 40%;
+    margin-bottom: 3px;
+    text-align: center;
+    width: 250px;
+    border: 1px solid #d4d8db;
+    border-radius: 20px;
+    background-color: white;
+}
+.order{
+    text-align: center;
+}
+.form-area-delivery{
+    margin-top: 10px;
+    width: 760px;
+    height: 150px;
+    padding: 16px;
+    font-size:20px;
+    font-weight: 400;
+    border-radius: 5px 5px 0 0;
+}
+.create_order-button{
+    width: 380px;
+    border: 1px solid rgba(114, 152, 38, 0.5);
+    box-sizing: border-box;
+    border-radius: 0 0 20px 0;
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    text-transform: capitalize;
+    background-color: #729826;
+    transition: 0.2s;
+}
+.create_order-button:hover {
+    background: rgba(114, 152, 38, 0.5);
+}
+.create_order-button:active {
+    background-color: white;
+}
+.back_shop-button{
+    width: 380px;
+    border: 1px solid rgba(114, 152, 38, 0.5);
+    box-sizing: border-box;
+    border-radius: 0 0 0 20px;
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    text-transform: capitalize;
+    background-color: #729826;
+    transition: 0.2s;
+}
+.back_shop-button a{
+    color: black;
+}
+.back_shop-button:hover{
+    background: rgba(114, 152, 38, 0.5);
+}
+.back_shop-button:active{
+    background-color: white;
+}
