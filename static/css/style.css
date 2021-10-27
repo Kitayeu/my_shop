@@ -5,6 +5,7 @@
 @import url('./login.css');
 @import url('./reset.css');
 @import url('./create.css');
+@import url('./orders_detail.css');
 
 html{
     font-family: 'Open Sans', sans-serif;

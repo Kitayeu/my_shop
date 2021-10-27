@@ -6,12 +6,7 @@
 
     <div>
         <div>
-            <span>
-                shop
-            </span>
-            <span>
-                Order №{{ order.id }}
-            </span>
+            <h3 class="detail_order-user">"Aqua" order №{{ order.id }}</h3>
         </div>
 
         <div>
@@ -23,18 +18,21 @@
         <div>
             <div>
                 <div>
-                    Manufacturer
+                    <h4>Manufacturer</h4>
                 </div>
                 E-mail: my@shop.dot<br>
-                Internet: shop<br>
+                Internet: https://mysite.com:8000/<br>
                 Telephone: 2128507<br>
             </div>
 
+            <br>
+
             <div>
                 <div>
-                    Buyer
+                    <h4>Customer</h4>
                 </div>
                     {{ order.first_name }} {{ order.last_name }}<br>
+                    {{ order.email }}<br>
                     {{ order.address }}<br>
                     {{ order.postal_code }}, {{ order.city }}
             </div>
@@ -42,50 +40,55 @@
 
         <hr>
 
-        <h3>Your order:</h3>
+        <h3 class="detail_order-user">Your order:</h3>
         <table>
             <thead>
             <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total price</th>
+                <th>Product&nbsp;</th>
+                <th>Price&nbsp;</th>
+                <th>Quantity&nbsp;</th>
+                <th>Total price&nbsp;</th>
             </tr>
             </thead>
+
             <tbody>
                 {% for item in order.items.all %}
                     <tr>
                         <td>
-                            {{ item.product.name }}
+                            {{ item.product.name }}&nbsp;
                         </td>
                         <td>
-                            ${{ item.price }}
+                            $ {{ item.price }}&nbsp;
                         </td>
                         <td>
-                            {{ item.quantity }} x
+                            {{ item.quantity }} x&nbsp;
                         </td>
                         <td>
-                            ${{ item.get_cost }}
+                            $ {{ item.get_cost }}&nbsp;
                         </td>
                     </tr>
 
                 {% endfor %}
 
                 <tr>
-                    <td colspan=3>
-                        Transport - {{ order.transport }}
+                    <td>
+                        Transport - {{ order.transport }}&nbsp;
                     </td>
                     <td>
-                        ${{ order.transport_cost }}
+                        $ {{ order.transport_cost }}&nbsp;
                     </td>
                 </tr>
 
                 <tr>
-                    <td colspan=3>
+                    <td>
                         Total price:
                     </td>
                     <td>
-                        ${{ order.get_total_cost|floatformat:2 }}
+                        $ {{ order.get_total_cost|floatformat:2 }} &nbsp;
+                    </td>
+
+                    <td>
+                        {% if order.paid %}Paid{% else %}Pending payment{% endif %}&nbsp;
                     </td>
                 </tr>
             </tbody>
