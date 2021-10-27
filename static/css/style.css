@@ -7,6 +7,7 @@
 @import url('./create.css');
 @import url('./orders_detail.css');
 @import url('./carts_detail.css');
+@import url('./register.css');
 
 html{
     font-family: 'Open Sans', sans-serif;
