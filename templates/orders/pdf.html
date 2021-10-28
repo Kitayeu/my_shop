@@ -40,7 +40,7 @@
     <table>
         <thead>
         <tr>
-            <th>Product&nbsp;</th>
+            <th>Details&nbsp;</th>
             <th>Price&nbsp;</th>
             <th>Quantity&nbsp;</th>
             <th>Total price&nbsp;</th>
@@ -52,7 +52,7 @@
                 <tr>
                     <td> {{ item.product.name }}&nbsp;</td>
                     <td>$ {{ item.price }}&nbsp;</td>
-                    <td>{{ item.quantity }} x&nbsp;</td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.quantity }} x&nbsp;</td>
                     <td>$ {{ item.get_cost }}&nbsp;</td>
                 </tr>
             {% endfor %}

@@ -33,9 +33,9 @@ class UpdateUserForm(forms.ModelForm):
         model = User
         fields = ('first_name', 'last_name', 'email')
         widgets = {
-            'first_name': forms.TextInput(),
-            'last_name': forms.TextInput(),
-            'email': forms.EmailInput()
+            'first_name': forms.TextInput(attrs={'class': 'form_user_update'}),
+            'last_name': forms.TextInput(attrs={'class': 'form_user_update'}),
+            'email': forms.EmailInput(attrs={'class': 'form_user_update'})
         }
 
 
@@ -45,9 +45,9 @@ class UpdateProfileForm(forms.ModelForm):
         model = Profile
         fields = ('phone_number', 'address', 'postal_code', 'city', 'country')
         widgets = {
-            'phone_number': forms.TextInput(),
-            'address': forms.TextInput(),
-            'postal_code': forms.TextInput(),
-            'city': forms.TextInput(),
-            'country': forms.TextInput()
+            'phone_number': forms.TextInput(attrs={'class': 'form_user_update'}),
+            'address': forms.TextInput(attrs={'class': 'form_user_update'}),
+            'postal_code': forms.TextInput(attrs={'class': 'form_user_update'}),
+            'city': forms.TextInput(attrs={'class': 'form_user_update'}),
+            'country': forms.TextInput(attrs={'class': 'form_user_update'})
         }

@@ -1,0 +1,83 @@
+.title_profile{
+    text-align: center;
+}
+.form_user_update{
+    font-size:20px;
+    font-weight: 400;
+    color:#000000;
+    width: 250px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+}
+.label_profile{
+    display: flex;
+    justify-content: flex-start;
+    font-size:20px;
+    font-weight: 400;
+    color:#000000;
+    width: 250px
+}
+.row_button{
+    text-align: center;
+    margin-top: 10px;
+}
+.row_button_update_profile{
+    width: 380px;
+    border: 1px solid rgba(114, 152, 38, 0.5);
+    box-sizing: border-box;
+    border-radius: 0 20px 20px 0;
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    text-transform: capitalize;
+    background-color: #729826;
+    transition: 0.2s;
+}
+.row_button_update_profile:hover{
+    background: rgba(114, 152, 38, 0.5);
+}
+.row_button_update_profile:active{
+    background-color: white;
+}
+.row_button_change_password{
+    width: 380px;
+    border: 1px solid rgba(114, 152, 38, 0.5);
+    box-sizing: border-box;
+    border-radius: 20px 0 0 20px;
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    text-transform: capitalize;
+    background-color: #729826;
+    transition: 0.2s;
+}
+.row_button_change_password a{
+    color: black;
+}
+.row_button_change_password:hover{
+    background: rgba(114, 152, 38, 0.5);
+}
+.row_button_change_password:active{
+    background-color: white;
+}
+.message_profile_head{
+     display: flex;
+    justify-content: center;
+}
+.message_profile{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    border: 1px solid white;
+    border-radius: 7px;
+    width: 400px;
+    background-color: white;
+}
+.title_your_orders{
+    margin: 20px 0 20px 20px;
+}
