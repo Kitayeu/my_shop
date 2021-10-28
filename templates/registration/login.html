@@ -4,47 +4,56 @@
 
 {% block content %}
 
-    <div>
-        <h3>Log in</h3>
-        <form action="" method="post">
-            <p><a href="{% url "password_reset" %}">Forgotten your password?</a></p>
-            {% csrf_token %}
-            <div>
-                <label for="username">Username</label>
-                {{ form.username }}
+    <div class="row_login">
+
+        <div class="row-login">
+            <h3>Log in</h3>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div>
+                    <label for="username">Username</label>
+                    {{ form.username }}
+                </div>
+
+                <div>
+                    <label for="password">Password</label>&nbsp;
+                    {{ form.password }}
+                </div>
+                <p><a href="{% url "password_reset" %}">Forgotten your password?</a></p>
+
+                <button class="login_button" type="submit">
+                    Log in
+                </button>
+            </form>
+
+            {% if form.errors %}
+                <div class="button_error">
+                    <a href="" class="close">Incorrect username / password <i class="fas fa-times"></i></a>
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="row-login">
+            <div class="social">
+                <ul>
+                    <li class="facebook">
+                        <a href="{% url "social:begin" "facebook" %}">
+                            Sign in with Facebook &nbsp;
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+
+                    <li class="google">
+                        <a href="{% url "social:begin" "google-oauth2" %}">
+                            Login with Google &nbsp;
+                            <i class="fab fa-google-plus-g"></i>
+                        </a>
+                    </li>
+                </ul>
             </div>
+        </div>
 
-            <br>
-
-            <div>
-                <label for="password">Password</label>&nbsp;
-                {{ form.password }}
-            </div>
-            <hr>
-            <button type="submit">
-                Log in
-            </button>
-        </form>
-
-        {% if form.errors %}
-            <div>
-                Incorrect username / password
-                <a href="" class="close">x</a>
-            </div>
-        {% endif %}
-
-    </div>
-
-    <div class="social">
-        <ul>
-            <li class="facebook">
-                <a href="{% url "social:begin" "facebook" %}">Sign in with Facebook</a>
-            </li>
-
-            <li class="google">
-                <a href="{% url "social:begin" "google-oauth2" %}">Login with Google</a>
-            </li>
-        </ul>
     </div>
 
 {% endblock content %}

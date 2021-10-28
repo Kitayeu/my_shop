@@ -5,18 +5,19 @@
 {% block content %}
 
     {% if messages %}
-        <div>
+        <div class="button_message">
             {% for message in messages %}
                 {{ message }}
-                <a href="" class="close">x</a>
+                <a href="" class="close"><i class="fas fa-times"></i></a>
             {% endfor %}
         </div>
     {% endif %}
 
     <div>
-        <h3>
+        <h3 class="register_title">
             Register
         </h3>
+
         <form action="" method="post">
             {% csrf_token %}
             <div>
@@ -47,7 +48,7 @@
 
             </div>
 
-            <button type="submit">
+            <button type="submit" class="register_button">
                 Register
             </button>
         </form>

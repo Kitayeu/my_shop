@@ -1,91 +1,155 @@
 {% extends 'shops/base.html' %}
 {% load static %}
+
 {% block title %}Shopping cart{% endblock title %}
+
 {% block content %}
+
     <div>
-        <h3>Your order:</h3>
-        <div>
-            <div>
-                Product
+
+        <h3 class="block_carts_h3">Your order:</h3>
+
+        <div class="block_carts">
+
+            <div class="row_carts">
+                <div class="row_carts-product">
+                    <h4>Product</h4>
+                </div>
+
+                <hr>
+
+                <div class="row_carts-description">
+                    <h4>Description</h4>
+                </div>
+
+                <hr>
+
+                <div class="row_carts-availability">
+                    <h4>Availability</h4>
+                </div>
+
+                <hr>
+
+                <div class="row_carts-price">
+                    <h4>Price</h4>
+                </div>
+
+                <hr>
+
+                <div class="row_carts-quantity">
+                    <h4>Quantity</h4>
+                </div>
+
+                <hr>
+
+                <div class="row_carts-total">
+                    <h4>Total price</h4>
+                </div>
             </div>
-            <div>
-                Description
-            </div>
-            <div>
-                Availability
-            </div>
-            <div>
-                Price
-            </div>
-            <div>
-                Quantity
-            </div>
-            <div>
-                Total price
-            </div>
+
+            <hr>
+
+            {% for item in cart %}
+                {% with product=item.product %}
+                    <div class="row_carts">
+                        <div class="row_carts-product">
+                            <div class="carts-row_image">
+                                <a href="{{ product.get_absolute_url }}">
+                                    <img src="{{ product.image.url }}" alt="image">
+                                </a>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row_carts-description">
+                            <h5>{{ product.name }}</h5>
+                        </div>
+
+                        <hr>
+
+                        <div class="row_carts-availability">
+                            {% if product.available %}
+                                <div>
+                                    <h5>Available</h5>
+                                </div>
+                            {% else %}
+                                <div>
+                                    <h5>Currently unavailable</h5>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <hr>
+
+                        <div class="row_carts-price">
+                            <h5>$ {{ product.price }}</h5>
+                        </div>
+
+                        <hr>
+
+                        <div class="row_carts-quantity">
+                            <div class="row_carts-quantity_update">
+                                <form action="{% url 'carts:cart_remove' product.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" data-toggle="tooltip" data-placement="top" title="Remove"
+                                            class="row_carts-quantity_remove">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+
+                                <form action="{% url 'carts:cart_add' product.id %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="row_carts-quantity_add-form">
+                                        <span>{{ item.update_quantity_form.quantity }}</span><!--
+                                        --><button type="submit" data-toggle="tooltip" data-placement="top"
+                                                title="Update" class="row_carts-quantity_add">
+                                            <i class="fas fa-retweet"></i>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row_carts-total">
+                            <h5>$ {{ item.total_price }}</h5>
+                        </div>
+                    </div>
+
+                {% endwith %}
+
+            <hr>
+
+            {% empty %}
+                <p class="cart_empty">Your shopping cart is empty</p>
+
+                <hr>
+
+            {% endfor %}
+
         </div>
-        <hr>
-        {% for item in cart %}
-            {% with product=item.product %}
-                <div>
-                    <a href="{{ product.get_absolute_url }}">
-                        <img src="{{ product.image.url }}" alt="image">
-                    </a>
-                </div>
-                <div>
-                    {{ product.name }}
-                </div>
-                <div>
-                    {% if product.available %}
-                        <div>
-                            Available
-                        </div>
-                    {% else %}
-                        <div>
-                            Currently unavailable
-                        </div>
-                    {% endif %}
-                </div>
-                <div>
-                    <span>${{ product.price }}</span>
-                </div>
-                <div>
-                    <form action="{% url 'carts:cart_add' product.id %}" method="post">
-                        {% csrf_token %}
-                        <span>
-                            {{ item.update_quantity_form.quantity }}
-                            <button type="submit" data-toggle="tooltip" data-placement="top" title="Update">
-                                <i>+</i>
-                            </button>
-                        </span>
-                    </form>
-                </div>
-                <div>
-                    <span>${{ item.total_price }}</span>
-                </div>
-                <div>
-                   <form action="{% url 'carts:cart_remove' product.id %}" method="post">
-                       {% csrf_token %}
-                       <button type="submit" data-toggle="tooltip" data-placement="top" title="Remove">
-                           <i>-</i>
-                       </button>
-                   </form>
-                </div>
-            {% endwith %}
-        {% empty %}
-            <span>Your shopping cart is empty.</span>
-        {% endfor %}
-        <hr>
+
         <div>
-            <h4>
+            <h3 class="total_price-h3">
                 Total price:
                 ${{ cart_total_price|floatformat:2 }}
-            </h4>
+            </h3>
         </div>
+
         <hr>
+
         <div>
-            <a href="{% url 'shops:product_list' %}">Back to shop</a>
-            <a href="{% url 'orders:order_create' %}">Checkout</a>
+            <button class="button_shops_product_list" onclick="window.location.href ='{% url 'shops:product_list' %}'">
+                Back to shop
+            </button><!--
+            --><button class="button_orders_order_create"
+                       onclick="window.location.href ='{% url 'orders:order_create' %}'">
+                    Checkout
+                </button>
         </div>
+
     </div>
+
 {% endblock content %}

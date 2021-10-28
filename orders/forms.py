@@ -13,14 +13,14 @@ class OrderCreateForm(forms.ModelForm):
         ]
 
         widgets = {
-            'first_name': forms.TextInput(),
-            'last_name': forms.TextInput(),
-            'email': forms.TextInput(),
-            'telephone': forms.TextInput(),
-            'address': forms.TextInput(),
-            'postal_code': forms.TextInput(),
-            'city': forms.TextInput(),
-            'country': forms.TextInput(),
-            'note': forms.Textarea(),
+            'first_name': forms.TextInput(attrs={'class': 'form-control-delivery'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control-delivery'}),
+            'email': forms.TextInput(attrs={'class': 'form-control-delivery'}),
+            'telephone': forms.TextInput(attrs={'class': 'form-control-delivery'}),
+            'address': forms.TextInput(attrs={'class': 'form-control-delivery'}),
+            'postal_code': forms.TextInput(attrs={'class': 'form-control-delivery'}),
+            'city': forms.TextInput(attrs={'class': 'form-control-delivery'}),
+            'country': forms.TextInput(attrs={'class': 'form-control-delivery'}),
+            'note': forms.Textarea(attrs={'class': 'form-area-delivery', 'placeholder': 'Note'}),
             'transport': forms.RadioSelect()
         }

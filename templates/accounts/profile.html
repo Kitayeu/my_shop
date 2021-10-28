@@ -7,124 +7,164 @@
     <br>
 
     {% if messages %}
-        <div>
-            {% for message in messages %}
-            {{ message }}
-            <a href="" class="close">x</a>
-            {% endfor %}
+        <div class="message_profile_head">
+            <div class="message_profile">
+                {% for message in messages %}
+                {{ message }}&nbsp;
+                <a href="" class="close"><i class="fas fa-times"></i></a>
+                {% endfor %}
+            </div>
         </div>
     {% endif %}
 
     <div>
-        <h2>
+
+        <h2 class="title_profile">
             Profile
         </h2>
+
         <form action="" method="post">
             {% csrf_token %}
 
-            <div class="row">
+            <div class="row_head">
 
-                <div>
-                    <label for="first_name">First name</label>
-                    {{ user_form.first_name }}
+                <div class="row_order">
+
+                    <div class="col_order">
+                        <div class="order_input">
+                            <label for="first_name" class="label_profile">First name</label>
+                            {{ user_form.first_name }}
+                        </div>
+                    </div>
+
+                    <div class="col_order">
+                        <div class="order_input">
+                            <label for="last_name" class="label_profile">Last name</label>
+                            {{ user_form.last_name }}
+                        </div>
+                    </div>
+
+                    <div class="col_order">
+                        <div class="order_input">
+                            <label for="email" class="label_profile">Email</label>
+                            {{ user_form.email }}
+                        </div>
+                    </div>
+
+                    <div class="col_order">
+                        <div class="order_input">
+                            <label for="phone_number" class="label_profile">Phone number</label>
+                            {{ profile_form.phone_number }}
+                        </div>
+                    </div>
+
                 </div>
 
-                <div>
-                    <label for="last_name">Last name</label>
-                    {{ user_form.last_name }}
-                </div>
+                <div class="row_order">
 
-                <div>
-                    <label for="email">Email</label>
-                    {{ user_form.email }}
-                </div>
+                    <div class="col_order">
+                        <div class="order_input">
+                            <label for="address" class="label_profile">Address</label>
+                            {{ profile_form.address }}
+                        </div>
+                    </div>
 
-                <div>
-                    <label for="phone_number">Phone number</label>
-                    {{ profile_form.phone_number }}
+                    <div class="col_order">
+                        <div class="order_input">
+                            <label for="postal_code" class="label_profile">Postal code</label>
+                            {{ profile_form.postal_code }}
+                        </div>
+                    </div>
+
+                    <div class="col_order">
+                        <div class="order_input">
+                            <label for="city" class="label_profile">City</label>
+                            {{ profile_form.city }}
+                        </div>
+                    </div>
+
+                    <div class="col_order">
+                        <div class="order_input">
+                            <label for="country" class="label_profile">Country</label>
+                            {{ profile_form.country }}
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
 
-            <br>
-
-            <hr>
-
-            <div class="row">
-
-                <div>
-                    <label for="address">Address</label>
-                    {{ profile_form.address }}
-                </div>
-
-                <div>
-                    <label for="postal_code">Postal code</label>
-                    {{ profile_form.postal_code }}
-                </div>
-
-                <div>
-                    <label for="city">City</label>
-                    {{ profile_form.city }}
-                </div>
-
-                <div>
-                    <label for="country">Country</label>
-                    {{ profile_form.country }}
-                </div>
-
-            </div>
-
-            <hr>
-
-            <div class="row">
-                <button type="submit" data-toggle="tooltip" data-placement="top"
-                        title="Fill in new details and click 'Update profile'">
+            <div class="row_button">
+                <button type="button" class="row_button_change_password"
+                           onclick="window.location.href ='{% url 'password_change' %}'">
+                        Change password
+                </button><!--
+                --><button type="submit" title="Fill in new details and click 'Update profile'"
+                        class="row_button_update_profile">
                     Update profile
                 </button>
-                <button type="submit" data-toggle="tooltip" data-placement="top"
-                        title="Change password">
-                    <a href="{% url 'password_change' %}">Change password</a>
-                </button>
             </div>
 
-            <hr>
+            <h3 class="title_your_orders">Your orders:</h3>
 
-            <h3>Your orders:</h3>
             <table>
-                {% for order in request.user.orders.all %}
-                    <tr>
-                        <td>
-                            <a href="{{ order.get_absolute_url }}">
-                                {{ order.id }}
-                            </a>
-                        </td>
 
-                        <td>{{ order.created|date }}</td>
-                        <td>
-                            ${{ order.get_total_cost|floatformat:2 }}
-                        </td>
+                {% if request.user.orders.all %}
+                    <thead>
+                        <tr>
+                            <th>Details&nbsp;</th>
+                            <th>Created&nbsp;&nbsp;</th>
+                            <th>Total price&nbsp;</th>
+                            <th>Invoice (pdf)&nbsp;</th>
+                            <th>Paid&nbsp;&nbsp;</th>
+                            <th>Type of delivery&nbsp;&nbsp;</th>
+                            <th>Status&nbsp;</th>
+                        </tr>
+                    </thead>
 
-                        <td>
-                            <a href="{% url 'orders:customer_invoice_pdf' order.id %}" target="_blank">
-                                <i></i>
-                                Invoice {{ order.id }}
-                            </a>
-                        </td>
+                    {% for order in request.user.orders.all %}
 
-                        <td>{{ order.status }}</td>
-                    </tr>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="{{ order.get_absolute_url }}">
+                                        &nbsp;&nbsp;{{ order.id }}&nbsp;
+                                    </a>
+                                </td>
 
-                {% empty %}
+                                <td>{{ order.created|date }}&nbsp;&nbsp;</td>
 
+                                <td>
+                                    $ {{ order.get_total_cost|floatformat:2 }}&nbsp;&nbsp;
+                                </td>
+
+                                <td>
+                                    <a href="{% url 'orders:customer_invoice_pdf' order.id %}" target="_blank">
+                                        <i></i>
+                                        Invoice {{ order.id }}&nbsp;
+                                    </a>
+                                </td>
+
+                                <td>{{ order.paid }}&nbsp;&nbsp;</td>
+
+                                <td>{{ order.transport }}&nbsp;&nbsp;</td>
+
+                                <td>{{ order.status }}</td>
+                            </tr>
+                        </tbody>
+
+                    {% endfor %}
+
+                {% else %}
                     <tr>
                         No orders yet
                     </tr>
-
-                {% endfor %}
+                {% endif %}
 
             </table>
 
         </form>
+
     </div>
 
 {% endblock content %}

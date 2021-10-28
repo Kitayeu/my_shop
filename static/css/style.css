@@ -1,15 +1,33 @@
-* {
+@import url('./header.css');
+@import url('./list.css');
+@import url('./detail.css');
+@import url('./footer.css');
+@import url('./login.css');
+@import url('./reset.css');
+@import url('./create.css');
+@import url('./orders_detail.css');
+@import url('./carts_detail.css');
+@import url('./register.css');
+@import url('./profile.css');
+
+html{
+    font-family: 'Open Sans', sans-serif;
+}
+*{
     margin: 0;
     padding: 0;
     list-style: none;
     text-decoration: none;
     box-sizing: border-box;
 }
-.container {
+.container{
     max-width: 1170px;
     margin: auto;
     padding: 0 15px;
+    position: relative;
+    z-index: 2;
 }
-h3 {
-    color: darkgreen;
+section{
+    padding: 75px 0 30px;
+    background: #f1f1f1;
 }
