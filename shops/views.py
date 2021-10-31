@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.postgres.search import TrigramSimilarity
 
 from .models import Category, Product, Review
-from .forms import ReviewForm
+from .forms import ReviewForm, SearchForm
 from carts.forms import CartAddProductForm
 
 
@@ -40,3 +41,19 @@ def product_detail(request, category_slug, product_slug):
                   {'cart_product_form': cart_product_form,
                    'product': product,
                    'review_form': review_form})
+
+
+def product_search(request):
+    form = SearchForm()
+    query = None
+    results = []
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+    if form.is_valid():
+        query = form.cleaned_data['query']
+        results = Product.objects.annotate(
+            similarity=TrigramSimilarity('name', query),
+        ).filter(similarity__gt=0.3).order_by('-similarity')
+    return render(request, 'shops/product/search.html', {'form': form,
+                                                         'query': query,
+                                                         'results': results})

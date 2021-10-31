@@ -1,0 +1,38 @@
+{% extends 'shops/base.html' %}
+
+{% block title %}Search{% endblock title %}
+
+{% block content %}
+
+    {% if query %}
+        <h2>Product containing "<span class="text_query">{{ query }}</span>"</h2>
+
+        <h3 class="text_found">
+            {% with results.count as total_results %}
+                Found <span class="text_query">{{ total_results }}</span> result{{ total_results|pluralize }}
+            {% endwith %}
+        </h3>
+
+        {% for product in results %}
+            <h4 class="found_results"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h4>
+            {{ product.description|truncatewords:5 }}
+        {% empty %}
+            <p class="empty_result">There are no results for your query</p>
+        {% endfor %}
+
+        <p>
+            <button type="button" class="button_search_again"
+                onclick="window.location.href ='{% url 'shops:product_search' %}'">
+                Search again
+            </button>
+        </p>
+
+    {% else %}
+        <h2 class="search_title">Search for products</h2>
+        <form action="." method="get">
+            {{ form.as_p }}
+            <input class="button_search_products" type="submit" value="Search">
+        </form>
+    {% endif %}
+
+{% endblock content %}

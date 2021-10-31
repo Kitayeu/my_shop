@@ -28,6 +28,15 @@
 
                     <nav class="nav">
                         <ul class="nav-list">
+
+                            <li class="nav-list__item">
+                                <div class="search__item">
+                                    <a href="{% url 'shops:product_search' %}">
+                                        Search &nbsp; <i class="fas fa-search"></i> &ensp;
+                                    </a>
+                                </div>
+                            </li>
+
                             {% if request.user.is_authenticated %}
                                 <li class="nav-list__item">
                                     <a href="{% url 'profile' %}">

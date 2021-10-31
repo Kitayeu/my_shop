@@ -14,3 +14,7 @@ class ReviewForm(forms.ModelForm):
         widgets = {'text': forms.Textarea(attrs={'class': 'review-add_text', 'rows': 6, 'cols': 134}),
                    'rating': forms.RadioSelect(choices=REVIEW_CHOICES)
                    }
+
+
+class SearchForm(forms.Form):
+    query = forms.CharField()

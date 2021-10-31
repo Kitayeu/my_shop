@@ -7,7 +7,7 @@ from .models import Profile
 class AccountsTests(TestCase):
 
     def setUp(self) -> None:
-        self.user = get_user_model().objects.create_user(username='user',
+        self.user = get_user_model().objects.create_user(id=1, username='user',
                                                          email='user@google.com',
                                                          password='user123456789'
                                                          )

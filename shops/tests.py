@@ -48,3 +48,22 @@ class ShopsTests(TestCase):
 
     def test_shops_review_content(self):
         self.assertEqual(self.review.text, 'good product')
+
+    def test_search_view(self):
+        response = self.client.get(reverse('shops:product_search'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_search_contains_correct_html(self):
+        response = self.client.get(reverse('shops:product_search'))
+        self.assertContains(response, 'Query')
+
+    def test_search_doesnt_contains_correct_html(self):
+        response = self.client.get(reverse('shops:product_search'))
+        self.assertNotContains(response, 'test')
+
+    def test_trigram_search(self):
+        self.assertQuerysetEqual(
+            Product.objects.filter(name='name'),
+            ['name'],
+            transform=lambda instance: instance.name,
+        )
