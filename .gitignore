@@ -145,3 +145,4 @@ add_info.py
 staticfiles/
 cert.crt
 cert.key
+static/img/
